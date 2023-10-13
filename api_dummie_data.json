@@ -1,0 +1,349 @@
+################ DATA DUMMIE ##############
+#### PAGOS ####
+
+db.pagos.insert(
+{
+	"condominio_id": 0,
+	"pagos": [{
+		"pago_id": 0,
+		"unidad": "01",
+		"gastocomun_id": 0,
+		"reserva_id": 0,
+		"fecha": "02-10-2017",
+		"monto": 25800.25,
+		"metodo_pago": [{
+			"id": 0,
+			"tipo": "TranskBank",
+			"monto": 25800.25,
+			"identificador_transaccion": "3214872BGFD348237", 
+		  	"moneda": 01 
+		}],
+		"usuario_id": 1
+	}]
+}
+)
+
+#### USUARIOS ####
+
+db.usuarios.insert(
+{
+  	"usuario_id": 1, 
+	"nombres": "Luis Eduardo",
+	"apellidos": "Liberal Rojas",
+	"email": "luiseliberal.cl@gmail.com",
+	"login": "luiseliberal",
+	"password": "s1zha8to",
+	"unidad": "03",
+	"rol": "propietario",
+	"profesion": "",
+	"ocupacion": "",
+	"servicios_productos": [{
+			"id": 1,
+			"descripcion": "Apps Móviles",
+			"url": "http://www.javadoh.com",
+			"telefono_contacto": "+56953351846"
+		},
+		{
+			"id": 2,
+			"descripcion": "Apps Realidad Virtual",
+			"url": "http://www.javadoh.com",
+			"telefono_contacto": "+56953351846"
+		}
+	],
+	"condominio_id": 0
+}
+)
+
+#### ENCUESTAS_VOTACIONES ####
+
+db.encuestas_votaciones.insert(
+{
+	"condominio_id": 0,
+	"encuestas": [{
+			"encuesta_id": 0,
+			"titulo": "¿Cambiamos el guardia?",
+			"fecha_creacion": "05-10-2017",
+			"fecha_cierre": "08-10-2017",
+			"fecha_actualizacion": "06-10-2017",
+			"votos": [{
+				"unidad": "01",
+				"id_respuesta": 1
+			}, {
+				"unidad": "03",
+				"id_respuesta": 0
+			}],
+			"opciones_respuestas": [{
+				"id": 0,
+				"desc": "Hacerlo"
+			}, {
+				"id": 1,
+				"desc": "No hacerlo"
+			}],
+			"usuario_registra": 0
+		},
+		{
+			"encuesta_id": 1,
+			"titulo": "¿Hacemos el muro en la fachada?",
+			"fecha_creacion": "01-10-2017",
+			"fecha_cierre": "31-10-2017",
+			"fecha_actualizacion": "02-10-2017",
+			"votos": [{
+				"unidad": "01",
+				"id_respuesta": 0
+			}, {
+				"unidad": "03",
+				"id_respuesta": 1
+			}],
+			"opciones_respuestas": [{
+				"id": 0,
+				"desc": "Extendamos la fachada con el muro"
+			}, {
+				"id": 1,
+				"desc": "Se quebrará lo que ya hay"
+			}],
+			"usuario_registra": 0
+		}
+	]
+}
+)
+
+##### CONDOMINIOS #####
+
+db.condominios.insert(
+{
+	"condominio_id": 0,
+	"descripcion": "Condominio Los Boldos",
+	"direccion": "General San Martin 2000, estancia Liray, calle Los Alamos, Colina, Santiago, Chile.",
+	"ciudad": {
+		"id": 187,
+		"descripcion": "Santiago de Chile",
+		"desc": "STGO"
+	},
+	"estado": {
+		"id": 10,
+		"descripcion": "Región Metropolitana",
+		"desc": "RMIXX"
+	},
+	"municipio": {
+		"id": 3,
+		"descripcion": "Colina",
+		"desc": "Col"
+	},
+	"pais": {
+		"id": 32,
+		"descripcion": "Chile",
+		"desc": "CL"
+	},
+	"latitud": "56464658432121",
+	"longitud": "121312515656",
+	"total_unidades": 54,
+	"total_unidades_habitadas": 27,
+	"unidades": ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
+	"administradores": [{
+			"id": 1,
+			"nombres": "Luis Eduardo",
+			"apellidos": "Liberal Rojas",
+			"cargo": "Presidente Junta"
+		},
+		{
+			"id": 2,
+			"nombres": "Pamela Alejandra",
+			"apellidos": "Martin Cid",
+			"cargo": "Tesorera Junta"
+		}
+	],
+	"personal": [{
+		"id": 1,
+		"dni": "8492384-2",
+		"nombres": "Juan Pablo",
+		"apellidos": "Loyola",
+		"cargo": "conserje"
+	}, {
+		"id": 2,
+		"dni": "3296282-4",
+		"nombres": "Mario",
+		"apellidos": "Contreras",
+		"cargo": "conserje"
+	}, {
+		"id": 3,
+		"dni": "32424323-4",
+		"nombres": "Maria",
+		"apellidos": "Villa",
+		"cargo": "limpieza"
+	}, {
+		"id": 4,
+		"dni": "4634683-5",
+		"nombres": "William",
+		"apellidos": "Rojas",
+		"cargo": "Mantenimiento ascensores"
+	}], 
+	"datos_pago": [
+            {"dni": "9887222-1", "descripcion": "Condominio Los Lagos","banco": "Estado", "tipo_cta": "Corriente", "nro_cta": "028947832", "condo_email": "condominioA@gmail.com"},
+            {"dni": "9887222-1", "descripcion": "Condominio Los Lagos","banco": "ScotiaBank", "tipo_cta": "Corriente", "nro_cta": "124453777", "condo_email": "condominioA@gmail.com"}
+            ]
+}
+)
+
+##### SEGURIDAD #####
+
+db.seguridad.insert(
+{
+	"condominio_id": 0,
+	"seguridad_items": [{
+		"seguridad_item_id": 0,
+		"path_hardware_portal": ["http://www.javadoh.com/condomanagement/security/condo/0/cams/fdsfsdfsdfsd.html", "http://www.javadoh.com/condomanagement/security/condo/1/cams/asdasfdg.html"],
+		"policia": [{
+			"id": 0,
+			"nombre": "Carabineros",
+			"telefonos": ["+5698765544", "+5697654321"]
+		}],
+		"bomberos": [{
+			"id": 1,
+			"nombre": "Bomberos de Colina",
+			"telefonos": ["+569766543", "+5691234566"]
+		}],
+		"botonPanico": ["01", "03"],
+		"emergencias": [{
+			"id": 0,
+			"nombre": "Samu",
+			"telefonos": ["+5693214567", "+5695443322"]
+		}]
+	}]
+}
+)
+
+
+##### VISITAS #####
+
+db.visitas.insert(
+{
+	"condominio_id" : 0.0, 
+	"visitas" : [
+		{
+			"visita_id" : 0.0,
+			"dni" : "3423445-6",
+			"nombres" : "Visitante Ale",
+			"apellidos" : "Visitador",
+			"fecha" : "02-10-2017",
+			"hora" : "12:00 am",
+			"vehiculo_id" : "XFGG22",
+			"usuario_registra" : 0.0,
+			"unidad_visitada" : [
+				"01"
+			]
+		},
+		{
+			"visita_id" : 1.0,
+			"dni" : "1235545-3",
+			"nombres" : "Cambridge new",
+			"apellidos" : "NoSeSabeApellido",
+			"fecha" : "02-10-2017",
+			"hora" : "13:30 pm",
+			"vehiculo_id" : "",
+			"usuario_registra" : 0.0,
+			"unidad_visitada" : [
+				"03"
+			]
+		}
+	]
+}
+)
+
+##### RESERVACIONES #####
+
+db.reservaciones.insert(
+{
+	"condominio_id": 0,
+	"reservaciones": [{
+			"_id": "0",
+			"reserva_tipo": "Quincho",
+			"unidad": "03",
+			"dni": "76543823-6",
+			"nombres": "Pamela Alejandra",
+			"apellidos": "Martin Cid",
+			"fecha_reserva": "01-10-2017",
+			"fecha_solicitada": "19-10-2017",
+			"fecha_aprobacion": "02-10-2017",
+			"fecha_cancelacion_reserva": "",
+			"usuario_aprueba": 3,
+			"usuario_registro": 0, 
+			"hora_inicio": "04:00pm",
+			"hora_fin": "12:00pm"
+		},
+		{
+			"_id": "1",
+			"reserva_tipo": "Quincho",
+			"unidad": "15",
+			"dni": "34958493-1",
+			"nombres": "Freddy",
+			"apellidos": "Mecanico",
+			"fecha_reserva": "02-10-2017",
+			"fecha_solicitada": "30-09-2017",
+			"fecha_aprobacion": "02-10-2017",
+			"fecha_cancelacion_reserva": "02-10-2017",
+			"usuario_aprueba": 2,
+			"usuario_registro": 0, 
+			"hora_inicio": "06:00pm",
+			"hora_fin": "01:00am"
+		}
+	]
+}
+)
+
+
+##### GASTO_COMUN #####
+
+db.gasto_comun.insert(
+{
+	"condominio_id": 0,
+	"gastos_comunes": [{
+		"gastocomun_id": 0,
+		"fecha_creacion": "18-09-2017",
+		"fecha_vencimiento": "19-10-2017",
+		"docuemento": "http://www.javadoh.com/eldocumento/gastocomun0.html",
+		"servicios_id": 3
+	}]
+}
+)
+
+###### SERVICIOS ######
+
+db.servicios.insert(
+{
+	"servicio_id": 0,
+	"condominio_id": 0,
+	"descripcion": "Agua San Andres",
+	"tipo": "Agua",
+	"identificador": "123123HGS2134",
+	"numero_factura_actual": "321234278",
+	"monto_factura_actual": 400.56,
+	"saldo_pendiente_pagar": 400.56,
+	"saldo_pagado": 0.0,
+	"fecha_emision": "29-09-2017",
+	"fecha_vencimiento": "30-10-2017",
+	"documentos": ["http://www.javadoh.com/condominios/documentos/condominio/0/03DOC.pdf"],
+	"observaciones": "Este mes se incrementa el costo de servicio por razones que indica la api.",
+	"saldo_historia": [{
+			"id": 1,
+			"fecha_emision": "28-07-2017",
+			"fecha_vencimiento": "28-08-2017",
+			"numero_factura": "14234235365",
+			"monto_factura": 180.50,
+			"saldo_pagado": 180.50,
+			"saldo_pendiente_pagar": 0.0,
+			"documentos": ["http://www.javadoh.com/condominios/documentos/condominio/0/01DOC.pdf"]
+		},
+		{
+			"id": 2,
+			"fecha_emision": "28-08-2017",
+			"fecha_vencimiento": "29-09-2017",
+			"numero_factura": "876564433",
+			"monto_factura": 200.56,
+			"saldo_pagado": 0.00,
+			"saldo_pendiente_pagar": 200.56,
+			"documentos": ["http://www.javadoh.com/condominios/documentos/condominio/0/02DOC.pdf"]
+		}
+	],
+	  "detalle": ["Detalle número 1 que describe esta situación", "Detalle número 2 que amplia esta observación"]
+}
+)
