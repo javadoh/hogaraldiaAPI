@@ -72,7 +72,7 @@ module.exports = function(app){
     app.get('/condominios/gastocomun/getAll', gastoComunController.findAll);
     //app.get('/condominios/gastocomun/getLastGcByCondo', gastoComunController.findLastGcByCondo);
 	app.get('/condominios/gastocomun/getLastGastoComun', gastoComunController.findByCondo);
-    app.get('/condominios/gastocomun/getGastoComun', gastoComunController.findById);
+    //app.get('/condominios/gastocomun/getGastoComun', gastoComunController.findById);
     app.put('/condominios/gastocomun/updateGastoComun', gastoComunController.update);
     app.post('/condominios/gastocomun/newGastoComun/:id', gastoComunController.add);
     app.delete('/condominios/gastocomun/deleteGastoComun', gastoComunController.delete);
