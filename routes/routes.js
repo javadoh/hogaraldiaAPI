@@ -9,6 +9,7 @@ module.exports = function(app){
     var serviciosController = require('.././controllers/servicios');
     var gastoComunController = require('.././controllers/gastocomun');
     var seguridadController = require('.././controllers/seguridad');
+    var pagosController = require('.././controllers/pagos');
     app.set('port', process.env.PORT || 8000);
     //INIT DATA
     app.get('/condominios/initdata/getInitData', initDataController.findAll);
