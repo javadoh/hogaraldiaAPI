@@ -124,6 +124,7 @@ exports.findAll = async function(req, res){
 };
 
 exports.findAllByCondo = async function (req, res){
+  var id = req.params.id;
   console.log('##### FIND ALL BY CONDO #####');
  const findAllByCondo = await UsuarioSchema.find({'condominio_id': id},'usuario_id nombres apellidos email dni dv unidad rol profesion ocupacion telefono_contacto servicios_productos condominio_id telefono_asignado sugerencias reclamos').catch((error) => {
   
