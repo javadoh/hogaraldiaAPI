@@ -5,15 +5,12 @@ var InitDataSchema = require('.././models/initdata');
 mongoose.set('debug', true);
 
 //TODOS LOS CONDOMINIOS
-exports.findAll = function(req, res){
+exports.findAll = async function(req, res){
   console.log('##### FIND ALL INIT DATA #####');
-  InitDataSchema.find({},'OnBoard MainServices GastosComunes Decisiones Reservas Seguridad AdsConvivencia',function(err, results){
-  
-if (err) {
-  console.log(err);
-  return res.send(err);
-}
+  const findAllInit = await InitDataSchema.find({},'OnBoard MainServices GastosComunes Decisiones Reservas Seguridad AdsConvivencia').catch((error) => {
+    console.log(error);
+  return res.send(error);
+  });
   console.log(results);
   return res.send(results);
-});
 };
