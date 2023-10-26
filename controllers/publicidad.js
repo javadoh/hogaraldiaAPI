@@ -36,12 +36,12 @@ exports.findAll = async function(req, res){
         ]
     }}
     ]}
-  ,'publicidad_id path_publicidad_imagen fecha_inicio_publicidad fecha_fin_publicidad path_publicidad_webpage tipo titulo descripcion condominio_id').catch((error) => {
+  ,'publicidad_id path_publicidad_imagen fecha_inicio_publicidad fecha_fin_publicidad path_publicidad_webpage tipo titulo descripcion condominio_id').sort({'fecha_inicio_publicidad' : -1})
+  .limit(10).catch((error) => {
   
   console.log(error);
   return res.send(error);
-  }).sort({'fecha_inicio_publicidad' : -1})
-  .limit(10);
+  });
   console.log(findAllPub);
   return res.send(findAllPub);
   };
