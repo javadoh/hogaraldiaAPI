@@ -11,6 +11,6 @@ exports.findAll = async function(req, res){
     console.log(error);
   return res.send(error);
   });
-  console.log(results);
-  return res.send(results);
+  console.log(findAllInit);
+  return res.send(findAllInit);
 };
