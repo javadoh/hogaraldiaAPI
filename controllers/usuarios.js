@@ -9,7 +9,7 @@ var Utils = require('./utils');
 
 //############## ON BOARD ################//
 //FUNCION ONBOARD PUT DE EMAIL, RUT E IMEI, VALIDADOR DE RUT Y RESPUESTA CLIENTE, CLIENTE REPETIDO O VISITANTE.
-exports.getDniUserOnBoard = function (req, res){
+exports.getDniUserOnBoard = async function (req, res){
 console.log('#### GET INIT DNI ON BOARD');
 console.log(req.headers);
 
@@ -30,25 +30,22 @@ console.log("DNI: "+dni);
 var dniNumber = parseInt(dni);
 console.log("DNI NUMBER: "+dniNumber);
 
- UsuarioSchema.findOne({'dni': dniNumber},'usuario_id nombres apellidos email dni dv unidad rol profesion ocupacion telefono_contacto servicios_productos condominio_id telefono_asignado sugerencias reclamos',function(error, result) {
-  if (error){
+ const getDniUserOnBoard = await UsuarioSchema.findOne({'dni': dniNumber},'usuario_id nombres apellidos email dni dv unidad rol profesion ocupacion telefono_contacto servicios_productos condominio_id telefono_asignado sugerencias reclamos').catch((error) => {
     console.log('ERROR: '+error);
     return res.status(500).send(error);
-  }
+  });
   
-  console.log("RESPONSE BACKENDDDDDDDDDDDDDDDDDDDDDDDDDDDDD: "+JSON.stringify(result));
+  console.log("RESPONSE BACKENDDDDDDDDDDDDDDDDDDDDDDDDDDDDD: "+JSON.stringify(getDniUserOnBoard));
 
-  if(result != null){
-    return res.status(200).send(result);
+  if(getDniUserOnBoard != null){
+    return res.status(200).send(getDniUserOnBoard);
   }else{
     return res.status(404).send('No se encontró el usuario');
   }
-  
-  });
 };
 
 //FUNCION POST DE DATOS EMAIL, DNI, IMEI DE USUARIO NO ENCONTRADO EN BASE DE DATOS COMO CLIENTE
-exports.postUserGuessOnBoard = function (req, res){
+exports.postUserGuessOnBoard = async function (req, res){
   console.log('ADD USUARIO VISITANTE ON BOARD');
 
   req.get.headers
@@ -63,22 +60,20 @@ const contentype = req.headers["content-type"];
   }
 
   var data = req.body;
-	UsuarioVisitaSchema.create(data, function (err, result) {
-    if (err) {
-    console.log(err);
-		if (err.name === 'MongoError' && err.code === 11000) {
+	const postUserGuessOnBoard = await UsuarioVisitaSchema.create(data).catch((error) => {
+    console.log(error);
+		if (error.name === 'MongoError' && error.code === 11000) {
         // Duplicate username
         return res.status(500).send('Error agregando el usuario visitante a la base de datos, ya existe.');
       }
       // Some other error
-      return res.status(500).send('Ocurrió un error, '+err);
-	}
-    return res.send(result);
-  });
+      return res.status(500).send('Ocurrió un error, '+error);
+	});
+    return res.send(postUserGuessOnBoard);
 }
 
 //ACTUALIZA DATOS DE UN USUARIO EXISTENTE AGREGANDO EL IMEI Y EL EMAIL SEGUN DNI
-exports.putEmailImeiOnBoard = function (req, res){
+exports.putEmailImeiOnBoard = async function (req, res){
 console.log('UPDATE IMEI Y EMAIL DE USUARIO EXISTENTE ON BOARD');
 
 //VALIDACION DE TOKEN DE CABECERA ESTATICO
@@ -96,72 +91,62 @@ var data = req.body;
 
 console.log('usuarioId: '+usuarioId+', data: '+JSON.stringify(data));
 
-UsuarioSchema.updateOne({"usuario_id":usuarioId}, {telefono_asignado: data.telefonoAsignado, email: data.email}, function (err, numberAffected) {
-      if (err) {
-		console.log(err);
-		return res.send(err);
-	  }
-    return res.send(numberAffected);
-  });
+const putEmailImeiOnBoard = await UsuarioSchema.updateOne({"usuario_id":usuarioId}, {telefono_asignado: data.telefonoAsignado, email: data.email}).catch((error) => { 
+		console.log(error);
+		return res.send(error);
+	  });
+    return res.send(putEmailImeiOnBoard);
 };
 //############## FIN ON BOARD ################//
 
 //TODOS LOS USUARIOS
-exports.findVisitasAll = function(req, res){
+exports.findVisitasAll = async function(req, res){
   console.log('##### FIND USUARIOS VISITA ALL #####');
-  UsuarioVisitaSchema.find({},'email dni dv',function(err, results){
+  const findVisitasAll = await UsuarioVisitaSchema.find({},'email dni dv').catch((error) => { 
   
-if (err) {
-  console.log(err);
-  return res.send(err);
-}
-  console.log(results);
-  return res.send(results);
+  console.log(error);
+  return res.send(error);
 });
+  console.log(findVisitasAll);
+  return res.send(findVisitasAll);
 };
 
 //TODOS LOS USUARIOS
-exports.findAll = function(req, res){
+exports.findAll = async function(req, res){
   console.log('##### FIND ALL #####');
-  UsuarioSchema.find({},'usuario_id nombres apellidos email dni dv unidad rol profesion ocupacion telefono_contacto servicios_productos condominio_id telefono_asignado sugerencias reclamos',function(err, results){
+  const findAllUsers = await UsuarioSchema.find({},'usuario_id nombres apellidos email dni dv unidad rol profesion ocupacion telefono_contacto servicios_productos condominio_id telefono_asignado sugerencias reclamos').catch((error) => {
   
-if (err) {
-  console.log(err);
-  return res.send(err);
-}
-  console.log(results);
-  return res.send(results);
+  console.log(error);
+  return res.send(error);
 });
+  console.log(findAllUsers);
+  return res.send(findAllUsers);
 };
 
-exports.findAllByCondo = function (req, res){
+exports.findAllByCondo = async function (req, res){
   console.log('##### FIND ALL BY CONDO #####');
-  UsuarioSchema.find({'condominio_id': id},'usuario_id nombres apellidos email dni dv unidad rol profesion ocupacion telefono_contacto servicios_productos condominio_id telefono_asignado sugerencias reclamos',function(err, results){
+ const findAllByCondo = await UsuarioSchema.find({'condominio_id': id},'usuario_id nombres apellidos email dni dv unidad rol profesion ocupacion telefono_contacto servicios_productos condominio_id telefono_asignado sugerencias reclamos').catch((error) => {
   
-if (err) {
-  console.log(err);
-  return res.send(err);
-}
-  console.log(results);
-  return res.send(results);
-});
+  console.log(error);
+  return res.send(error);
+ });
+  console.log(findAllByCondo);
+  return res.send(findAllByCondo);
 }
 
 //UN USUARIO POR ID
-exports.findById = function(req, res) {
+exports.findById = async function(req, res) {
   console.log('##### FIND BY ID #####');
  var id = req.params.id;
- UsuarioSchema.findOne({'usuario_id':id},'usuario_id nombres apellidos email dni dv unidad rol profesion ocupacion telefono_contacto servicios_productos condominio_id telefono_asignado sugerencias reclamos',function(err, result) {
+ const findById = await UsuarioSchema.findOne({'usuario_id':id},'usuario_id nombres apellidos email dni dv unidad rol profesion ocupacion telefono_contacto servicios_productos condominio_id telefono_asignado sugerencias reclamos').catch((error) => { 
 
-  if (err){
-    console.log(err);
-    return res.send(err);
-  }
-    return res.send(result);
+    console.log(error);
+    return res.send(error);
   });
+    return res.send(findById);
 };
 
-exports.putUserSugerencia = function(req, res){
+exports.putUserSugerencia = async function(req, res){
   console.log('###### ADD NEW SUGERENCIA ######');
 
   //VALIDACION DE TOKEN DE CABECERA ESTATICO
@@ -181,17 +166,17 @@ console.log("CONTENT TYPE EN REST PUT USER SUGERENCIA: "+contentype);
 
   try{
   
-    UsuarioSchema.updateOne({'usuario_id':userId}, {$push: {'sugerencias': data} }, function (err, numberAffected) {
-       if (err) return console.log(err);
-       console.log("Updated usuario sugerencia: "+userId+", con data: "+data+"...... ", numberAffected);
-       return res.send(numberAffected);
-   });
+    const putUserSugerencia = await UsuarioSchema.updateOne({'usuario_id':userId}, {$push: {'sugerencias': data} }).catch((error) => { 
+       return console.log(error);
+      });
+       console.log("Updated usuario sugerencia: "+userId+", con data: "+data+"...... ", putUserSugerencia);
+       return res.send(putUserSugerencia);
    
    }catch(err){console.log(err);}
 
 }
 
-exports.putUserReclamo = function(req, res){
+exports.putUserReclamo = async function(req, res){
   console.log('###### ADD NEW RECLAMO ######');
   var userId = req.params.usuarioId;
   var data = req.body;
@@ -271,12 +256,11 @@ if(data._parts.length > 2){
       console.log('DataBody: '+dataBody);
       var dataBodyJson = JSON.parse(dataBody);
 
-      UsuarioSchema.updateOne({'usuario_id':userId}, {$push: {reclamos: dataBodyJson} }, function (err, numberAffected) {
-        if (err) return res.send(err);
-        console.log("Updated usuario reclamo: "+userId+", Rows: "+ numberAffected);
-
-        return res.send(numberAffected);
+      const putUserReclamo = await UsuarioSchema.updateOne({'usuario_id':userId}, {$push: {reclamos: dataBodyJson} }).catch((error) => { 
+        console.log("Updated usuario reclamo: "+userId+", Rows: "+ putUserReclamo);
+        return res.send(error);
       });
+        return res.send(putUserReclamo);
    
    }catch(err){console.log(err);}
 }
@@ -330,47 +314,43 @@ if(data._parts.length > 2){
 };*/
 
 //FUNCION DE ACTUALIZAR DATOS DE USUARIOS EN LA APLICACION
-exports.update = function(req, res) {
+exports.update = async function(req, res) {
 console.log('#### UPDATE USER ####');
 var id = req.params.id;
 var data = req.body;
 
-UsuarioSchema.update({"usuario_id":id}, data, function (err, numberAffected) {
-      if (err) {
-		console.log(err);
-		return res.send(err);
-	  }
+const updateUser = await UsuarioSchema.update({"usuario_id":id}, data).catch((error) => { 
+		console.log(error);
+		return res.send(error);
+	  });
 		  
-      console.log('Updated %d usuarios', numberAffected);
+      console.log('Updated %d usuarios', updateUser);
       return res.sendStatus(202);
-  });
 };
 
 //FUNCION DE AGREGAR USUARIOS A LA APLICACION
-exports.add = function (req, res){
+exports.add = async function (req, res){
   var data = req.body;
-	UsuarioSchema.create(data, function (err, result) {
-    if (err) {
-    console.log(err);
+	const addUser = await UsuarioSchema.create(data).catch((error) => { 
+    console.log(error);
 		
-		if (err.name === 'MongoError' && err.code === 11000) {
+		if (error.name === 'MongoError' && error.code === 11000) {
         // Duplicate username
         return res.status(500).send('El email o el login del usuario ya existe, por favor escoge otro.');
       }
       // Some other error
-      return res.status(500).send('Ocurrió un error, '+err);
-	}
-    return res.send(result);
-  });
-  
+      return res.status(500).send('Ocurrió un error, '+error);
+	  });
+    return res.send(addUser);
 };
 
 //FUNCION DE ELIMINAR USUARIOS EN LA APLICACION POR USER_ID
-exports.delete = function(req, res) {
+exports.delete = async function(req, res) {
 var id = req.params.id;
-UsuarioSchema.remove({'usuario_id':id},function(result) {
-    return res.send(result);
+const deleteUser = await UsuarioSchema.remove({'usuario_id':id}).catch((error) => { 
+    return res.send(error);
   });
+  return res.send(deleteUser);
 };
 
 
