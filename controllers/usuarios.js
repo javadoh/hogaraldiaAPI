@@ -62,9 +62,10 @@ const contentype = req.headers["content-type"];
   var data = req.body;
 	const postUserGuessOnBoard = await UsuarioVisitaSchema.create(data).catch((error) => {
     console.log(error);
-		if (error.name === 'MongoError' && error.code === 11000) {
+		if (error.code === 11000) {
         // Duplicate username
-        return res.status(500).send('Error agregando el usuario visitante a la base de datos, ya existe.');
+        //return res.status(500).send('Error agregando el usuario visitante a la base de datos, ya existe.');
+        return res.send('Error agregando el usuario visitante a la base de datos, ya existe.');
       }
       // Some other error
       return res.status(500).send('Ocurrió un error, '+error);
